@@ -61,13 +61,15 @@ test-clean:
 
 ## test-tools      Install test tools
 test-tools:
+	@# golint is deprecated and frozen.
 	$(eval GOLINT_PATH=$(shell which golint))
 	@if [ -z "$(GOLINT_PATH)" ]; then \
 		GO111MODULE=off go get golang.org/x/lint/golint; \
 	fi
+
 	$(eval STATICCHECK_PATH=$(shell which staticcheck))
 	@if [ -z "$(STATICCHECK_PATH)" ]; then \
-		GO111MODULE=off go get honnef.co/go/tools/cmd/staticcheck; \
+		go install honnef.co/go/tools/cmd/staticcheck@v0.3.1; \
 	fi
 
 ## fmt             Run formating
